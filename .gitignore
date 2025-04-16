@@ -1,0 +1,13 @@
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+
+# Java
+target/
+*.log
+
+# Environment
+.env
