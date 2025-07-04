@@ -11,3 +11,6 @@ target/
 
 # Environment
 .env
+
+logs/*.log.*.gz
+additional/evaluate-prometheus/.data/
