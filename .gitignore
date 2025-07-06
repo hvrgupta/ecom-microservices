@@ -13,4 +13,4 @@ target/
 .env
 
 logs/*.log.*.gz
-additional/evaluate-prometheus/.data/
+additional/evaluate-prometheus/.data/minio/

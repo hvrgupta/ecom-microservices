@@ -16,10 +16,14 @@ public class GatewayConfig {
 //                                f.rewritePath("/products(?<segment>/?.*)",
 //                                        "/api/products${segment}"))
                         .uri("lb://PRODUCT-SERVICE"))
-                .route("order-service",r ->  r.path("/api/orders/**, /api/cart/**")
+//                .route("order-service",r ->  r.path("/api/orders/**, /api/cart/**")
 //                        .filters(f ->
 //                                f.rewritePath("/(?<segment>.*)",
 //                                        "/api/${segment}"))
+//                        .uri("lb://ORDER-SERVICE"))
+                .route("order-service-orders", r -> r.path("/api/orders/**")
+                        .uri("lb://ORDER-SERVICE"))
+                .route("order-service-cart", r -> r.path("/api/cart/**")
                         .uri("lb://ORDER-SERVICE"))
                 .route("user-service", r -> r.path("/api/users/**")
 //                        .filters(f ->
