@@ -12,6 +12,9 @@ public class GatewayConfig {
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("product-service",r -> r.path("/api/products/**")
+                        .filters(f ->
+                                f.circuitBreaker(config -> config.setName("ecomBreaker")
+                                        .setFallbackUri("forward:/fallback/products")))
 //                        .filters(f ->
 //                                f.rewritePath("/products(?<segment>/?.*)",
 //                                        "/api/products${segment}"))
@@ -22,10 +25,19 @@ public class GatewayConfig {
 //                                        "/api/${segment}"))
 //                        .uri("lb://ORDER-SERVICE"))
                 .route("order-service-orders", r -> r.path("/api/orders/**")
+                        .filters(f ->
+                                f.circuitBreaker(config -> config.setName("ecomBreaker")
+                                        .setFallbackUri("forward:/fallback/orders")))
                         .uri("lb://ORDER-SERVICE"))
                 .route("order-service-cart", r -> r.path("/api/cart/**")
+                        .filters(f ->
+                                f.circuitBreaker(config -> config.setName("ecomBreaker")
+                                        .setFallbackUri("forward:/fallback/orders")))
                         .uri("lb://ORDER-SERVICE"))
                 .route("user-service", r -> r.path("/api/users/**")
+                        .filters(f ->
+                                f.circuitBreaker(config -> config.setName("ecomBreaker")
+                                        .setFallbackUri("forward:/fallback/users")))
 //                        .filters(f ->
 //                                f.rewritePath("/users(?<segment>/?.*)",
 //                                        "/api/users${segment}"))
