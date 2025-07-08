@@ -3,6 +3,7 @@ package com.ecommerce.order.controller;
 import com.ecommerce.order.dto.CartItemRequest;
 import com.ecommerce.order.model.CartItem;
 import com.ecommerce.order.service.CartService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartController {
 
-    private final CartService cartService;
+    private final CartService  cartService;
 
     @PostMapping
     public ResponseEntity<String> addToCart(
@@ -39,7 +40,7 @@ public class CartController {
 
     @GetMapping
     public ResponseEntity<List<CartItem>> getCart(
-            @RequestHeader("X-User-ID") String userId) {
+            @RequestHeader("X-User-ID") String  userId) {
         return ResponseEntity.ok(cartService.getCart(userId));
     }
 
