@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import reactor.core.publisher.Mono;
+import java.util.Objects;
 
 @Configuration
 public class GatewayConfig {
@@ -19,7 +20,7 @@ public class GatewayConfig {
 
     @Bean
     public KeyResolver hostNameKeyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
+        return exchange -> Mono.just(Objects.requireNonNull(exchange.getRequest().getRemoteAddress()).getHostName());
     }
 
     @Bean
